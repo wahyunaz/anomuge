@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Messages - Anomuge</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Buat postinganmu dan biarkan orang lain membalasnya secara
+    anonim">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon.png">
+    <meta property="og:title" content="Anomuge - Messages">
+    <meta property="og:description" content="Buat postinganmu dan biarkan orang lain membalasnya secara
+anonim">
+    <meta property="og:image" content="../assets/icon.png">
+    <link rel="manifest" href="../manifest.json">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* chrome */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #2f2f2f;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        /* Firefox & Edge */
+
+        * {
+            scrollbar-color: #2f2f2f transparent;
+            /* Warna thumb dan track */
+        }
+
+        ::selection {
+            background-color: #5f5f5f;
+        }
+
+        .paragraph {
+            color: #afafaf;
+        }
+
+        #pc-navb,
+        #mobile-navb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 53px;
+            font-size: 15px;
+            justify-content: space-between;
+            border-bottom: 0.5px solid rgb(47, 51, 54);
+            align-items: center;
+            padding: 0 25px 0 16px;
+            background-color: black;
+            user-select: none;
+            z-index: 5;
+            color: #E7E9EA;
+            will-change: transform;
+        }
+
+        #loading {
+            display: block;
+            height: 92vh;
+        }
+
+        .load_data {
+            width: 45px;
+            height: 45px;
+            border: solid 4px #E7E9EA;
+            border-radius: 50%;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            -webkit-transition: all 0.5s ease-in;
+            -webkit-animation-name: rotate;
+            -webkit-animation-duration: 1.0s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+
+            transition: all 0.5s ease-in;
+            animation-name: rotate;
+            animation-duration: 1.0s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+
+
+
+
+
+        .hideData {
+            display: none;
+        }
+
+
+
+
+        .message-container {
+            white-space: pre-line;
+            word-wrap: break-word;
+            word-wrap: break-word;
+            font-family: Arial, Helvetica, sans-serif;
+            border-bottom: 0.2px solid #2f2f2f;
+        }
+
+        .username-container {
+            white-space: pre-line;
+            word-wrap: break-word;
+            word-wrap: break-word;
+            font-family: Arial, Helvetica, sans-serif;
+            flex-wrap: wrap;
+        }
+
+
+
+        .post-button {
+            user-select: none !important;
+            font-weight: 600;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .post-button:active {
+            background-color: #0d6cab;
+        }
+
+        .bwhite {
+            background-color: white;
+        }
+
+        .white {
+            color: #E7E9EA;
+        }
+
+        .blue {
+            color: #1D9BF0;
+        }
+
+        .bblue {
+            background-color: #1D9BF0;
+        }
+
+        .title {
+            font-size: 23px;
+            font-family: Poppins, Arial, Helvetica, sans-serif;
+        }
+
+        .message-icon {
+            font-size: 30px;
+            color: #E7E9EA;
+        }
+
+        .username {
+            color: #E7E9EA;
+            font-size: 17px;
+            font-weight: 610;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .message {
+            color: #96999a;
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        .date {
+            color: #96999a;
+            font-size: 15px;
+        }
+
+        .announcement {
+            margin: 0 7px;
+            background-color: #1D9BF0;
+            padding: 2px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .ic-click:hover {
+            background-color: rgb(61, 61, 61);
+        }
+
+        .ic-click {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 9px;
+            background-color: transparent;
+            border-radius: 70%;
+        }
+
+        .ic-click:active {
+            background-color: rgb(61, 61, 61);
+        }
+
+        #empty-data {
+            margin-top: 15%;
+        }
+
+        .rounded-default {
+            border-radius: 6px;
+        }
+
+        .desc {
+            max-width: 350px;
+        }
+
+        .t-inf {
+            font-size: 19px;
+
+        }
+
+        #mobile-footer {
+            user-select: none;
+        }
+
+
+        @media only screen and (max-width: 765px) {
+
+            body {
+                overflow: hidden;
+            }
+
+            #main {
+                min-height: 90vh;
+                overflow: hidden;
+                /*Firefox */
+                scrollbar-width: thin;
+                scrollbar-color: transparent transparent;
+
+            }
+
+            #data-container {
+                margin: 0 0 62px 0;
+            }
+
+
+            /* Chrome dan Safari */
+            #main::-webkit-scrollbar {
+                width: 0;
+            }
+
+            /* Firefox */
+            #main::-moz-scrollbar {
+                display: none;
+            }
+
+            #sidebar {
+                display: none;
+            }
+
+            /* footer */
+            #mobile-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                height: 59px;
+                background-color: black;
+                will-change: transform;
+                padding: 0 8%;
+                border-top: 0.5px solid rgb(47, 51, 54);
+            }
+
+            .button-list {
+                justify-content: space-between;
+                align-items: center;
+                display: flex;
+                width: 100%;
+            }
+
+            .mobile-page-button {
+                color: #b5b5b5;
+                display: grid;
+                place-items: center;
+                cursor: unset;
+                height: 100%;
+                padding: 13.5px 7px;
+            }
+
+            .mobile-page-icon {
+                font-size: 19px;
+            }
+
+            .mobile-page-name {
+                font-size: 11px;
+                margin-top: 3px;
+            }
+
+            .mobile-is-here {
+                color: #E7E9EA;
+            }
+
+            /* end */
+
+
+            .showData {
+                display: block;
+            }
+
+
+            .message-container {
+                width: 100%;
+                padding: 17px 19px;
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                user-select: none;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                white-space: normal;
+            }
+
+            .message-container:active {
+
+                background-color: rgb(33, 33, 33);
+
+            }
+
+
+            .card {
+                width: 160px;
+                background-color: #2a2a31;
+                box-sizing: content-box;
+                margin: 10px;
+                border-radius: 6px;
+                cursor: unset;
+                user-select: none;
+            }
+
+
+
+            .card:active {
+                background-color: #212127;
+            }
+
+            .card-icon {
+                font-size: 40px;
+                color: #E7E9EA;
+            }
+
+
+            #navb {
+                padding: 2em 14px;
+            }
+
+            .ic-click {
+                cursor: unset !important;
+            }
+
+            .post-button {
+                user-select: none !important;
+                font-weight: 600;
+                font-family: Arial, Helvetica, sans-serif;
+                cursor: unset !important;
+            }
+
+            .ic-click:hover {
+                background-color: transparent;
+            }
+
+            .ic-click:active {
+                background-color: rgb(61, 61, 61);
+            }
+
+            #mobile-navb {
+                padding: 2em 14px;
+                display: flex;
+            }
+
+            #pc-navb {
+                display: none;
+            }
+
+            .verification {
+                background-color: #1D9BF0;
+                padding: 3.5px;
+                font-size: 10px;
+                margin: 0 6px;
+                color: black;
+                border-radius: 50%;
+            }
+
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+
+            @-webkit-keyframes rotate {
+                from {
+                    -webkit-transform: rotate(0deg);
+                }
+
+                to {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            .loading {
+                width: 50px;
+                height: 50px;
+                border: solid 5px #E7E9EA;
+                border-radius: 50%;
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                -webkit-transition: all 0.5s ease-in;
+                -webkit-animation-name: rotate;
+                -webkit-animation-duration: 1.0s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+
+                transition: all 0.5s ease-in;
+                animation-name: rotate;
+                animation-duration: 1.0s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            #load_data {
+                display: none;
+                justify-content: center;
+                height: 170px;
+            }
+
+
+        }
+
+        @media only screen and (min-width: 765px) {
+
+
+
+
+            body {
+                display: flex;
+                overflow: hidden;
+
+            }
+
+            #main {
+                overflow: auto;
+                height: 100vh;
+            }
+
+            #mobile-footer {
+                display: none;
+            }
+
+
+            #main {
+                overflow: auto;
+                scrollbar-width: thin;
+                width: 100%;
+
+            }
+
+            #mobile-navb {
+                display: none;
+            }
+
+            #pc-navb {
+                display: flex;
+                padding-left: 23px;
+            }
+
+
+
+            #page-button-container {
+                border-bottom: 0.2px solid rgb(47, 51, 54);
+                padding: 0 0 10px 0;
+            }
+
+            #copyright {
+                font-family: Arial, Helvetica, sans-serif;
+                color: #717171;
+                text-align: center;
+                margin: 17px 0;
+                font-size: 14px;
+            }
+
+
+            #data-container {
+                margin: 0 0 20px 0;
+            }
+
+            .showData {
+                display: grid;
+                place-items: center;
+            }
+
+            .message-container {
+                width: 80%;
+                padding: 10px 19px;
+                margin: 5px auto;
+                align-items: center;
+                border-radius: 6px;
+                background-color: #2a2a31;
+                display: flex;
+                user-select: none;
+                cursor: pointer;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                white-space: normal;
+            }
+
+            .message-container:hover {
+                background-color: #222228;
+            }
+
+
+            .card {
+                width: 170px;
+                background-color: #2a2a31;
+                box-sizing: content-box;
+                margin: 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: transform 0.2s ease-in-out;
+                user-select: none;
+            }
+
+            .card:hover {
+                transform: scale(1.1);
+            }
+
+            .card:active {
+                background-color: #212127;
+            }
+
+            .card-icon {
+                font-size: 40px;
+                color: #E7E9EA;
+            }
+
+            .end {
+                width: 170px;
+                height: 170px;
+                background-color: transparent;
+                box-sizing: content-box;
+                margin: 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: transform 0.2s ease-in-out;
+                user-select: none;
+            }
+
+
+
+
+            #sidebar {
+                width: 17vw;
+                height: 100vh;
+                background-color: rgb(0, 0, 0);
+                z-index: 1;
+                border-right: 1px solid rgb(47, 51, 54);
+                overflow-y: auto;
+                padding-top: 81px;
+                user-select: none;
+            }
+
+
+            #main {
+                overflow: auto;
+                scrollbar-width: thin;
+                width: 100%;
+                padding-top: 75px;
+
+            }
+
+            .page-button {
+                padding: 10px 13px;
+                margin: 7px 12px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: 570;
+                display: flex;
+                align-items: center;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .is-here {
+                background-color: #2a2a31;
+                border-radius: 9px;
+            }
+
+            .page-button:hover {
+                background-color: #1c1c20;
+                border-radius: 9px;
+            }
+
+            .is-here:hover {
+                background-color: #2a2a31;
+            }
+
+            .page-icon {
+                font-size: 23px;
+            }
+
+            .page-name {
+                margin-left: 20px;
+            }
+
+
+
+            .post-button:hover {
+                background-color: #0d6cab;
+            }
+
+            .verification {
+                background-color: #1D9BF0;
+                padding: 3px;
+                font-size: 10px;
+                margin: 0 4px 0 6px;
+                color: black;
+                border-radius: 50%;
+            }
+
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+
+            @-webkit-keyframes rotate {
+                from {
+                    -webkit-transform: rotate(0deg);
+                }
+
+                to {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+
+
+            .loading {
+                width: 60px;
+                height: 60px;
+                border: solid 7px #E7E9EA;
+                border-radius: 50%;
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                -webkit-transition: all 0.5s ease-in;
+                -webkit-animation-name: rotate;
+                -webkit-animation-duration: 1.0s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+
+                transition: all 0.5s ease-in;
+                animation-name: rotate;
+                animation-duration: 1.0s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            #load_data {
+                display: none;
+                padding-top: 2.2vw;
+                justify-content: center;
+                height: 120px;
+            }
+
+        }
+
+        /* max width 1210 */
+        @media screen and (max-width: 1210px) {
+            #main {
+                padding-top: 75px;
+            }
+
+            #sidebar {
+                width: 77px;
+            }
+
+            .page-name {
+                display: none;
+            }
+
+            .page-button {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            #copyright {
+                display: none;
+            }
+        }
+
+        @media screen and (min-width: 1210px) {
+            .page-icon {
+                width: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black">
+    <section id="sidebar">
+        <ul id="page-button-container">
+            <li>
+                <a href="../" class="page-button flex white" oncontextmenu="return false;">
+                    <i class="page-icon fas fa-home"></i>
+                    <p class="page-name">Beranda</p>
+                </a>
+            </li>
+            <li>
+                <a href="../post" class="page-button flex white" oncontextmenu="return false;">
+                    <i class="page-icon fas fa-pencil-alt"></i>
+                    <p class="page-name">Posting</p>
+                </a>
+            </li>
+            <li>
+                <div onclick="window.location.href = `../profile/?n=@${decrypt(localStorage.getItem('rk_4t9'),71)}`"
+                    class="page-button flex white" oncontextmenu="return false;">
+                    <i class="page-icon fas fa-user"></i>
+                    <p class="page-name">Profil</p>
+                </div>
+            </li>
+            <li>
+                <a href="../followed" class="page-button flex white" oncontextmenu="return false;">
+                    <i class="page-icon fas fa-asterisk"></i>
+                    <p class="page-name">Status</p>
+                </a>
+            </li>
+            <li>
+                <a href="./" class="page-button flex white is-here" oncontextmenu="return false;">
+                    <i class="page-icon fas fa-comment"></i>
+                    <p class="page-name">Pesan</p>
+                </a>
+            </li>
+            <li>
+                <a href="../about" class="page-button flex white" oncontextmenu="return false;">
+                    <i class="page-icon fas fa-info-circle"></i>
+                    <p class="page-name">Tentang</p>
+                </a>
+            </li>
+        </ul>
+
+        <p id="copyright"></p>
+    </section>
+
+    <section id="main">
+        <nav id="pc-navb" class="bg-black">
+            <span>
+                <h1 class="title white font-bold">Anomuge</h1>
+            </span>
+        </nav>
+        <nav id="mobile-navb" class="bg-black">
+            <span class="flex" style="align-items: center;">
+
+                <h1 style="margin-left: 5px;" id="sender-name" class="font-bold text-xl">Pesan</h1>
+            </span>
+        </nav>
+        <section id="data-container" class="hideData">
+
+        </section>
+        <section id="load_data">
+            <div class="load_data"></div>
+        </section>
+        <section id="loading">
+            <div style="display: flex; justify-content: center; align-items: center; height: 80%; width: 100%;"
+                class="loading-container">
+                <div class="loading"></div>
+            </div>
+        </section>
+        <section style="display: none;" id="empty-data" class="flex justify-center items-center select-none">
+            <div class="inf inline-block text-center">
+                <h1 class="font-bold white t-inf">Belum ada pesan</h1>
+                <p class="paragraph desc m-5">Kirim pesan anonim ke orang lain dan tunggu balasannya</p>
+            </div>
+
+        </section>
+    </section>
+    <footer id="mobile-footer">
+        <ul class="button-list">
+            <li onclick="window.location.href = '../'" class="mobile-page-button">
+                <i class="mobile-page-icon fas fa-home"></i>
+                <p class="mobile-page-name">Beranda</p>
+            </li>
+            <li onclick="window.location.href = '../followed'" class="mobile-page-button">
+                <i class="mobile-page-icon fas fa-asterisk"></i>
+                <p class="mobile-page-name">Status</p>
+            </li>
+            <li class="mobile-page-button mobile-is-here">
+                <i class="mobile-page-icon fas fa-comment"></i>
+                <p class="mobile-page-name">Pesan</p>
+            </li>
+            <li onclick="window.location.href = `../profile/?n=@${decrypt(localStorage.getItem('rk_4t9'),71)}`"
+                class="mobile-page-button">
+                <i class="mobile-page-icon fas fa-user"></i>
+                <p class="mobile-page-name">Profil</p>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('../sw.js')
+                .then((reg) => {
+                    console.log(reg.scope);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    </script>
+
+    <script>document.querySelector('html').setAttribute('lang', navigator.language || navigator.userLanguage);</script>
+
+
+    <script type="text/javascript">
+        const dataContainer = document.getElementById('data-container');
+        const emptyData = document.getElementById('empty-data');
+        const loading_section = document.getElementById("loading");
+
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+            document.body.style.userSelect = "none";
+        }
+
+
+        const chrt = (char, key) => /[a-zA-Z]/.test(char) ? String.fromCharCode((char.charCodeAt() - (/[A-Z]/.test(char) ? 65 : 97) + key + 26) % 26 + (/[A-Z]/.test(char) ? 65 : 97)) : char;
+        const text_to_base64 = (text) => btoa(text);
+        const base64_to_text = (base64) => atob(base64);
+        const encrypt = (text, key) => text_to_base64([...text].map(char => chrt(char, key)).join(''));
+        const decrypt = (text, key) => [...base64_to_text(text)].map(char => chrt(char, (26 - key) % 26)).join('');
+
+
+
+        const copyright = document.getElementById("copyright");
+        copyright.innerText = `© ${new Date().getFullYear()} Wahyuna`;
+
+
+        const ago = timestamp => {
+            const t = new Date() - new Date(timestamp);
+            const s = Math.floor(t / 1000);
+            const m = Math.floor(s / 60);
+            const h = Math.floor(m / 60);
+            const d = Math.floor(h / 24);
+            const w = Math.floor(d / 7);
+            const mn = Math.floor(w / 4);
+            const y = Math.floor(mn / 12);
+
+            return t < 1000 ? 'baru saja' : s < 60 ? `${s} detik` : m < 60 ? `${m} menit` : h < 24 ? `${h} jam` : d < 7 ? `${d} hari` : w < 4 ? `${w} minggu` : mn < 12 ? `${mn} bulan` : `${y} tahun`;
+        };
+
+        function create_a_message(username_data, message_data, verification_data, date_data, read_data, id_data) {
+            const messageContainer = document.createElement("div");
+            messageContainer.classList.add("message-container");
+
+            const image = document.createElement("i");
+            image.setAttribute("class", "fas fa-comment message-icon")
+            messageContainer.appendChild(image);
+
+            const msgContainer = document.createElement("div");
+            msgContainer.style.marginLeft = '20px';
+
+            const usernameContainer = document.createElement("span");
+            usernameContainer.style.display = "flex"
+            usernameContainer.style.alignItems = "center"
+            usernameContainer.setAttribute("class", "username-container")
+
+            const username = document.createElement("p");
+            username.setAttribute("class", "username")
+            username.innerText = decrypt(username_data, 71).toString().length > 20 ? decrypt(username_data, 71).slice(0, 20) + "..." : decrypt(username_data, 71)
+
+            const message = document.createElement("p");
+            message.setAttribute("class", 'message')
+            message.innerText = message_data.length > 70 ? message_data.slice(0, 70) + "..." : message_data
+
+            const date = document.createElement("p");
+            date.setAttribute("class", 'date')
+            date.style.marginLeft = '7px'
+            date.innerText = "• " + ago(date_data)
+            setInterval(function () {
+                date.innerText = "• " + ago(date_data)
+            }, 1000)
+
+            const announcement = document.createElement('p')
+            announcement.setAttribute("class", 'announcement')
+            announcement.innerHTML = "New"
+
+
+
+            messageContainer.addEventListener("click", function () {
+                window.location.href = "../message/anonymous/?id=" + id_data
+                announcement.style.display = "none"
+            })
+            usernameContainer.appendChild(username)
+
+            const verification = document.createElement('i')
+            verification.setAttribute("class", "verification fas fa-check")
+
+            if (verification_data) {
+                usernameContainer.appendChild(verification)
+            }
+            usernameContainer.appendChild(date)
+            if (!read_data) {
+                usernameContainer.append(announcement)
+            }
+            msgContainer.appendChild(usernameContainer);
+            msgContainer.appendChild(message);
+
+
+            messageContainer.appendChild(msgContainer);
+            dataContainer.appendChild(messageContainer)
+        }
+
+        let start_index = 0;
+        let end_of_data = 0;
+
+
+        const req = async () => {
+            try {
+                const response = await fetch('../send_to_anonymous_user.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Accept-Encoding': 'identity'
+                    },
+                    body: 'anonymous_id=' + localStorage.getItem("9_nn") + '&start_index=' + start_index,
+                });
+
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+
+                const data = await response.json();
+                start_index += 12;
+                end_of_data = data.lots_of_data;
+
+                if (end_of_data > 0) {
+                    setTimeout(() => {
+                        emptyData.style.display = "none";
+                        loading_section.style.display = "none";
+
+                        setTimeout(() => {
+                            dataContainer.setAttribute("class", "showData");
+                            load_data.style.display = 'flex';
+                            document.body.style.overflow = 'auto';
+                        }, 10);
+                    }, 50);
+
+                    data.data.forEach(message => {
+                        create_a_message(
+                            message.username,
+                            message.my_message,
+                            message.verification,
+                            message.date,
+                            message.read,
+                            message.id
+                        );
+                    });
+                } else {
+                    setTimeout(() => {
+                        dataContainer.setAttribute("class", "hideData");
+                        loading_section.style.display = "none";
+                        setTimeout(() => {
+                            emptyData.style.display = "flex";
+                            document.body.style.overflow = 'auto';
+                            load_data.style.display = 'none';
+                        }, 10);
+                    }, 50);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+
+        let view_data = setInterval(() => {
+            if (start_index <= end_of_data) {
+                const r = dataContainer.getBoundingClientRect();
+
+                if (r.bottom <= window.innerHeight) {
+                    req();
+                }
+            } else {
+                clearInterval(view_data);
+                setTimeout(() => {
+                    load_data.style.display = 'none';
+                }, 200);
+            }
+        }, 400);
+
+    </script>
+
+</body>
+
+</html>

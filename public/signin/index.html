@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anomuge - Sign in</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="manifest" href="../manifest.json">
+    <meta name="description" content="Buat status anda sendiri dan biarkan orang lain membalasnya secara anonim">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon.png">
+    <meta property="og:title" content="Anomuge - Perpesanan anonim">
+    <meta property="og:description" content="Buat status anda sendiri dan biarkan orang lain membalasnya secara anonim">
+    <meta property="og:image" content="../assets/icon.png">
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #title {
+            color: #0d6cab;
+            font-family: 'Poppins', Arial, Helvetica, sans-serif;
+            font-size: 25px;
+        }
+
+        #navb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 63px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 12px 0 16px;
+            background-color: black;
+            user-select: none;
+
+        }
+
+        .paragraph {
+            color: #afafaf;
+        }
+
+        .information {
+            max-width: 390px;
+        }
+
+        .white {
+            color: #E7E9EA;
+        }
+
+        .blue {
+            color: #1D9BF0;
+        }
+
+        .bblue {
+            background-color: #1D9BF0;
+        }
+
+        .info {
+            display: block;
+        }
+
+        .text-desc {
+            font-size: 19px;
+        }
+
+        .form-gr {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            padding: 0 2px;
+            border-bottom: 1px solid #c5c5c5;
+            width: 100%;
+        }
+
+        ::selection {
+            background-color: rgb(255, 255, 255);
+            color: black;
+        }
+
+        .inp-gr {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: #E7E9EA;
+            width: 100%;
+            height: 40px;
+            font-size: 17px;
+            padding: 5px;
+        }
+
+        .text-title {
+            font-size: 27px;
+        }
+
+        .signup-container {
+            display: flex;
+            align-items: center;
+            height: 50vh;
+        }
+
+        .linear {
+            margin: 0 40px;
+        }
+
+        .info {
+            margin: 0;
+        }
+
+        .form {
+            padding: 12px 7px;
+            width: 100%;
+        }
+
+        .signup-card {
+            width: 100%;
+        }
+
+        .loading-button {
+            background-color: #1D9BF0;
+            border: none;
+            width: 100%;
+            cursor: unset;
+            margin-top: 26px;
+            border-radius: 20px;
+            font-size: 19px;
+            display: grid;
+            place-items: center;
+        }
+
+        .si-button {
+            background-color: #1D9BF0;
+            border: none;
+            width: 100%;
+            margin-top: 26px;
+            border-radius: 20px;
+            font-size: 19px;
+        }
+
+        .si-button:active {
+            background-color: #005e9d;
+            border: none;
+
+        }
+
+        .si-button-dis {
+            background-color: #0d4d78;
+            border: none;
+            width: 100%;
+            margin-top: 26px;
+            border-radius: 20px;
+            font-size: 19px;
+        }
+
+        .ic-click {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 9px;
+            background-color: transparent;
+            border-radius: 70%;
+        }
+
+        .ic-click:active {
+            background-color: rgb(62, 62, 62);
+        }
+
+        .ic {
+            font-size: 22px;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        .information {
+            margin: 10px 0;
+        }
+
+        .su-button {
+            background-color: transparent;
+            border: 1px solid #1D9BF0;
+            width: 100%;
+            margin-top: 16px;
+            border-radius: 20px;
+            color: #1D9BF0;
+            font-size: 19px;
+        }
+
+        .su-button:active {
+            background-color: #002e4d;
+            border: 1px solid #1D9BF0;
+
+        }
+
+        .i-pc {
+            margin-top: 20px;
+        }
+
+        .install-button {
+            background-color: #EFF3F4;
+            width: 100%;
+            margin-top:24px;
+            border-radius: 20px;
+            color: #000000;
+            font-size: 19px;
+            display: none;
+        }
+
+        .install-button:active {
+            background-color: #b8b8b8;
+
+        }
+
+        .m-info {
+            margin-top: 7px;
+        }
+
+        .bwhite {
+            background-color: #EFF3F4;
+        }
+
+        input::selection {
+            background-color: rgb(108, 108, 108);
+        }
+
+        .question {
+            margin: 14px 0 0 0;
+        }
+
+        #error {
+            margin: 14px 0 0 0;
+            color: rgb(230, 18, 18);
+            font-weight: 560;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+        }
+
+        #show-password,
+        #hide-password {
+            padding: 0 4px 0 6px;
+        }
+
+
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        @-webkit-keyframes rotate {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        .loading {
+            width: 27px;
+            height: 27px;
+            border: solid 4px #000000;
+            border-radius: 50%;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            -webkit-transition: all 0.5s ease-in;
+            -webkit-animation-name: rotate;
+            -webkit-animation-duration: 1.0s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: linear;
+
+            transition: all 0.5s ease-in;
+            animation-name: rotate;
+            animation-duration: 1.0s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+
+
+
+
+
+        @media only screen and (min-width: 905px) {
+            .form-gr {
+                min-width: 320px;
+            }
+
+            .si-button:hover {
+                background-color: #1b85cc;
+            }
+
+            .si-button {
+                cursor: pointer;
+            }
+
+            .su-button:hover {
+                background-color: #001b2e;
+            }
+
+            .signup-card {
+                border: 0.3px solid rgb(47, 51, 54);
+                padding: 7px;
+                margin-top: 40px;
+                border-radius: 6px;
+            }
+
+            .i-pc:hover {
+                background-color: rgb(199, 199, 199);
+            }
+
+            .m-information {
+                display: none;
+            }
+
+            body {
+                padding: 12px;
+            }
+
+            .signup-container {
+                margin-top: 60px;
+                padding-top: 45px;
+            }
+
+            .install-button:hover{
+                background-color: rgb(208, 208, 208);
+            }
+
+
+        }
+
+
+        @media only screen and (max-width: 905px) {
+            #navb {
+                display: none;
+            }
+
+            .info {
+                display: none;
+            }
+
+            .signup-container {
+                padding: 20px 0 0 0;
+                display: block;
+
+                height: 50vh;
+            }
+
+            .install-button {
+                display: block;
+            }
+
+            .install-button:active {
+                background-color: rgb(169, 169, 169);
+            }
+
+            .form {
+                padding: 12px 0;
+                width: 100%;
+            }
+
+            .si-button {
+                cursor: unset;
+            }
+        }
+
+        @media only screen and (max-width: 900px) {
+            .info {
+                text-align: center;
+            }
+
+            .si-button {
+                cursor: unset;
+            }
+
+            .su-button {
+                cursor: unset;
+            }
+
+            .install-button {
+                cursor: unset;
+            }
+
+            .ic {
+                cursor: unset;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black">
+    <nav id="navb">
+        <span class="title-container">
+            <h1 id="title" class="text-center font-bold">Anomuge</h1>
+        </span>
+    </nav>
+    <section class="signup-container flex flex-wrap justify-center">
+        <div class="info linear">
+            <h1 class="white font-bold text-title select-none">Perpesanan anonim</h1>
+            <p class="information text-desc paragraph">Buat status anda sendiri dan biarkan orang lain membalasnya secara anonim
+            </p>
+            <button style="display: none;" id="install-button" class="i-pc bwhite font-bold py-2 px-4 rounded"
+                type="submit">Instal Aplikasi</button>
+        </div>
+        <div class="signup-ctr linear flex justify-center">
+            <div class="signup-card shadow">
+                <h1 class="white text-center font-bold text-title select-none">Sign in</h1>
+                <p class="m-information text-center m-info paragraph select-none">Buat status anda sendiri dan biarkan orang lain membalasnya secara anonim</p>
+
+                <div class="form mx-auto">
+                    <div class="form-gr" id="username-container">
+                        <input onkeypress="next(event)" class="inp-gr" type="text" name="username" id="username"
+                            placeholder="Username" autocomplete="off">
+
+                    </div>
+                    <div class="form-gr" id="password-container">
+                        <input class="inp-gr" type="password" name="password" id="password" placeholder="Password"
+                            autocomplete="off">
+                        <i id="show-password" style="display: none;" class="fas fa-eye white ic"></i>
+                        <i id="hide-password" style="display: none;" class="fas fa-eye-slash white ic"></i>
+
+
+
+
+                    </div>
+                    <button style="height: 45px;" id="signin-button"
+                        class="si-button-dis font-bold text-black shadow-md select-none py-2" type="submit">Sign
+                        in</button>
+                    <button style="height: 45px; display: none;" id="loading-button"
+                        class="loading-button font-bold text-black shadow-md select-none py-2" type="submit">
+                        <div class="loading"></div>
+                    </button>
+                    <span id="question" class="text-center">
+                        <p class="paragraph question select-none">Belum punya akun?</p>
+                    </span>
+                    <span id="error-container" style="display: none;" class="text-center">
+                        <p id="error" class="error select-none"></p>
+                    </span>
+                    <a oncontextmenu="return false;" style="cursor: not-allowed;" href="../signup"><button
+                            class="su-button font-bold text-black shadow-md select-none py-2" type="submit">Sign
+                            up</button></a>
+                    <button style="display: none; height: 45px;" id="install-buttonn"
+                        class="install-button font-bold text-black shadow-md select-none py-2" type="submit">Instal
+                        aplikasi</button>
+                </div>
+            </div>
+    </section>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('../sw.js')
+                .then((reg) => {
+                    console.log(reg.scope);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    </script>
+    <script>document.querySelector('html').setAttribute('lang', navigator.language || navigator.userLanguage);</script>
+
+    <script>
+
+        const install_button = document.getElementById('install-button');
+        const install_buttonn = document.getElementById('install-buttonn');
+        let prmpt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            prmpt = e;
+            if (window.innerWidth <= 905) {
+                install_buttonn.style.display = 'block';
+            } else {
+                install_button.style.display = 'block';
+            }
+        });
+
+        function pwa() {
+            if (prmpt) {
+                prmpt.prompt();
+                prmpt.userChoice
+                    .then((result) => {
+                        prmpt = null;
+                        install_button.style.display = 'none';
+                        install_buttonn.style.display = 'none';
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        }
+
+        install_button.addEventListener('click', pwa);
+        install_buttonn.addEventListener('click', pwa);
+
+
+
+    </script>
+
+    <script type="text/javascript">
+        const showPassword = document.getElementById("show-password")
+        const hidePassword = document.getElementById("hide-password")
+        const username = document.getElementById("username")
+        const password = document.getElementById("password")
+        const usernameContainer = document.getElementById("username-container")
+        const passwordContainer = document.getElementById("password-container")
+        const signinButton = document.getElementById("signin-button")
+        const errorMessage = document.getElementById("error")
+        const errorContainer = document.getElementById("error-container")
+        const question = document.getElementById("question")
+        const loadingButton = document.getElementById("loading-button")
+
+        const chrt = (char, key) => /[a-zA-Z]/.test(char) ? String.fromCharCode((char.charCodeAt() - (/[A-Z]/.test(char) ? 65 : 97) + key + 26) % 26 + (/[A-Z]/.test(char) ? 65 : 97)) : char;
+        const text_to_base64 = (text) => btoa(text);
+        const base64_to_text = (base64) => atob(base64);
+        const encrypt = (text, key) => text_to_base64([...text].map(char => chrt(char, key)).join(''));
+        const decrypt = (text, key) => [...base64_to_text(text)].map(char => chrt(char, (26 - key) % 26)).join('');
+
+
+
+        // disable button
+        signinButton.disabled = true
+        signinButton.classList.remove("si-button")
+
+
+        showPassword.addEventListener("click", () => {
+            // show the password
+            if (password.type === "password") {
+                password.type = "text"
+            } else {
+                password.type = "password"
+            }
+            showPassword.style.display = "none"
+            hidePassword.style.display = "block"
+            password.focus()
+        })
+
+        // hide the password
+        hidePassword.addEventListener("click", () => {
+            // hide the password
+            if (password.type === "text") {
+                password.type = "password"
+            } else {
+                password.type = "text"
+            }
+
+            showPassword.style.display = "block"
+            hidePassword.style.display = "none"
+            password.focus()
+        })
+
+        // username on input
+        username.addEventListener("input", () => {
+            // aturan username
+            username.value = username.value.slice(0, 22);
+            username.value = username.value.replace(/\b\w/g, (x) => x.toUpperCase()).replaceAll("ℹ", "i").replace(/[^\p{L}\p{N}\s\u0600-\u06FF\uAC00-\uD7A3\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]/gu, '').replaceAll("  ", " ");
+            username.value = username.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+        })
+
+        //  on input 
+        function oninput() {
+            question.style.display = "block"
+            errorContainer.style.display = "none"
+            if (password.value.length > 0) {
+                if (password.type === "password") {
+                    showPassword.style.display = "block"
+                    hidePassword.style.display = "none"
+                } else {
+                    showPassword.style.display = "none"
+                    hidePassword.style.display = "block"
+                }
+            } else {
+                showPassword.style.display = "none"
+                hidePassword.style.display = "none"
+                password.type = "password"
+            }
+
+
+
+            // yes
+            if (username.value && password.value) {
+                signinButton.disabled = false
+                signinButton.removeAttribute("class")
+                signinButton.setAttribute("class", "si-button font-bold text-black shadow-md select-none py-2")
+            } else {
+                signinButton.disabled = true
+                signinButton.removeAttribute("class")
+                signinButton.setAttribute("class", "si-button-dis font-bold text-black shadow-md select-none py-2")
+            }
+        }
+
+        // username on input
+        username.addEventListener("input", function (e) {
+            oninput();
+        });
+
+        // password on input 
+        password.addEventListener("input", function (e) {
+            oninput();
+        });
+
+
+
+        // username on focus
+        username.addEventListener("focus", () => {
+            usernameContainer.style.borderBottom = "1px solid #1D9BF0"
+            username.style.caretColor = "#1D9BF0"
+        })
+
+        // username on blur
+        username.addEventListener("blur", () => {
+            usernameContainer.style.borderBottom = "1px solid #c5c5c5"
+            username.style.caretColor = "#c5c5c5"
+        })
+
+        // password on focus
+        password.addEventListener("focus", () => {
+            passwordContainer.style.borderBottom = "1px solid #1D9BF0"
+            password.style.caretColor = "#1D9BF0"
+            showPassword.style.color = "#1D9BF0"
+            hidePassword.style.color = "#1D9BF0"
+        })
+
+        // password on blur
+        password.addEventListener("blur", () => {
+            passwordContainer.style.borderBottom = "1px solid #c5c5c5"
+            password.style.caretColor = "#c5c5c5"
+            showPassword.style.color = "#E7E9EA"
+            hidePassword.style.color = "#E7E9EA"
+
+        })
+
+        // error fuction
+        function error_msg(msg) {
+            question.style.display = "none"
+            errorContainer.style.display = "flex"
+            errorMessage.innerHTML = msg
+        }
+
+        // cek karakter
+        let contains_special_characters = text => /[!@#$%^&*()\,.-`~?":{}|<>_+='/]/.test(text);
+
+        // cek angka 
+        var contains_number = text => /\d/.test(text);
+
+        // signin function 
+
+        function signin() {
+            signinButton.style.display = 'none';
+            loadingButton.style.display = 'grid';
+            let data = new FormData();
+            data.append('username', encodeURIComponent(encrypt(username.value.trim(), 71)));
+            data.append('password', password.value.trim());
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '../signin_be.php', true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        let output = JSON.parse(xhr.responseText);
+                        if (output.success) {
+                            localStorage.setItem("_0_n", output.token);
+                            localStorage.setItem("z12_r", output.id);
+
+                            window.location.replace("../");
+                        } else {
+                            setTimeout(function () {
+                                signinButton.style.display = 'block';
+                                loadingButton.style.display = 'none';
+                                error_msg(output.message);
+                            }, 10)
+                        }
+                    } else {
+                        setTimeout(function () {
+                            signinButton.style.display = 'block';
+                            loadingButton.style.display = 'none';
+                            console.error(xhr.status);
+                        }, 10)
+                    }
+                }
+            };
+
+            // Mengirim data ke server
+            xhr.send(data);
+        }
+
+
+
+
+
+
+
+        // signin button on click
+        signinButton.addEventListener("click", () => {
+            // aturan username
+            username.value = username.value.slice(0, 22);
+            username.value = username.value.replace(/\b\w/g, (x) => x.toUpperCase()).replaceAll("ℹ", "i").replace(/[^\p{L}\p{N}\s\u0600-\u06FF\uAC00-\uD7A3\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF]/gu, '').replaceAll("  ", " ");
+            username.value = username.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            if (username.value && password.value) {
+                signin()
+            }
+        })
+
+
+
+
+        function next(event) {
+            if (event.key === 'Enter') {
+                password.focus();
+            }
+        }
+
+
+        if (username.value && password.value) {
+            // enable button
+            signinButton.disabled = false
+            signinButton.classList.add("su-button")
+        }
+
+
+    </script>
+</body>
+
+</html>
