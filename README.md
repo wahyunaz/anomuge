@@ -4,7 +4,7 @@ Anomuge adalah platform media sosial berbasis anonim, di mana setiap pengguna da
 
 ## Screenshots
 
-![Inbox](assets/inbox.jpg)
-![Profile](assets/profile.jpg)
+![Inbox](assets/inbox.png)
+![Profile](assets/profile.png)
 
 Created by Wahyuna
